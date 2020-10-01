@@ -28,6 +28,7 @@ public class ExceptionController {
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleServiceException(MTrackerServiceException e) {
         log.error("Exception thrown: " + e.toString());
+        e.printStackTrace();
         return ResponseEntity
                 .status(e.getError().getCode())
                 .body(new ErrorResponse(e.getError()));
