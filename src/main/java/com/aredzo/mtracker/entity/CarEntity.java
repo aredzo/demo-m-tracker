@@ -86,13 +86,13 @@ public class CarEntity {
         this.meters = meters;
     }
 
-    public void addMeter(MeterEntity meter){
+    public void addMeter(MeterEntity meter) {
         this.meters.add(meter);
         meter.setCar(this);
 
     }
 
-    public void removeMeter(MeterEntity meter){
+    public void removeMeter(MeterEntity meter) {
         this.meters.remove(meter);
         meter.setCar(null);
     }
