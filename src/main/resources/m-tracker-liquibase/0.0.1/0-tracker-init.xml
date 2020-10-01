@@ -1,0 +1,130 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+>
+    <changeSet id="0.0.1-create-table-house" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="house"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="house">
+            <column name="house_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="house_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="owner_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0.0.1-create-table-car" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="car"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="car">
+            <column name="car_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="car_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="owner_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0.0.1-create-table-meter" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="meter"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="meter">
+            <column name="meter_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="meter_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="unit" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house_id" type="integer"/>
+            <column name="car_id" type="integer"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0.0.1-add-fk-constrain-to-meter" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_meter_house_id"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_meter_car_id"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="fk_meter_house_id"
+                baseTableName="meter"
+                baseColumnNames="house_id"
+                referencedTableName="house"
+                referencedColumnNames="house_id"/>
+        <addForeignKeyConstraint
+                constraintName="fk_meter_car_id"
+                baseTableName="meter"
+                baseColumnNames="car_id"
+                referencedTableName="car"
+                referencedColumnNames="car_id"/>
+    </changeSet>
+
+    <changeSet id="0.0.1-create-table-measurement" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="measurement"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="measurement">
+            <column name="measurement_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meter_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0.0.1-add-fk-constrain-to-measurement" author="oderhunov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_measurement_meter_id"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="fk_measurement_meter_id"
+                baseTableName="measurement"
+                baseColumnNames="meter_id"
+                referencedTableName="meter"
+                referencedColumnNames="meter_id"/>
+    </changeSet>
+
+</databaseChangeLog>
