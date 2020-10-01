@@ -48,7 +48,7 @@ public class MTrackerController {
     @GetMapping("/house/{houseId}")
     public HouseResponse getHouse(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int houseId) {
+            @NotNull @PathVariable int houseId) {
         return mTrackerService.getHouse(houseId, userToken);
     }
 
@@ -56,7 +56,7 @@ public class MTrackerController {
     @DeleteMapping("/house/{houseId}")
     public HouseResponse deleteHouse(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int houseId) {
+            @NotNull @PathVariable int houseId) {
         return mTrackerService.removeHouse(houseId, userToken);
     }
 
@@ -71,7 +71,7 @@ public class MTrackerController {
     @GetMapping("/car/{carId}")
     public CarResponse getCar(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int carId) {
+            @NotNull @PathVariable int carId) {
         return mTrackerService.getCar(carId, userToken);
     }
 
@@ -79,7 +79,7 @@ public class MTrackerController {
     @DeleteMapping("/car/{carId}")
     public CarResponse deleteCar(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int carId) {
+            @NotNull @PathVariable int carId) {
         return mTrackerService.removeCar(carId, userToken);
     }
 
@@ -87,7 +87,7 @@ public class MTrackerController {
     @PostMapping("/car/{carId}/meter")
     public MeterResponse addMeterToCar(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int carId,
+            @NotNull @PathVariable int carId,
             @Valid @RequestBody MeterPostRequest request) {
         return mTrackerService.addMeterToCar(carId, request, userToken);
     }
@@ -95,7 +95,7 @@ public class MTrackerController {
     @PostMapping("/house/{houseId}/meter")
     public MeterResponse addMeterToHouse(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int houseId,
+            @NotNull @PathVariable int houseId,
             @Valid @RequestBody MeterPostRequest request) {
         return mTrackerService.addMeterToHouse(houseId, request, userToken);
     }
@@ -103,7 +103,7 @@ public class MTrackerController {
     @GetMapping("/meter/{meterId}")
     public MeterResponse getMeter(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int meterId) {
+            @NotNull @PathVariable int meterId) {
         return mTrackerService.getMeter(meterId, userToken);
     }
 
@@ -111,21 +111,21 @@ public class MTrackerController {
     @DeleteMapping("/meter/{meterId}")
     public MeterResponse deleteMeter(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int meterId) {
+            @NotNull @PathVariable int meterId) {
         return mTrackerService.removeMeter(meterId, userToken);
     }
 
     @GetMapping("/meter/{meterId}/measurement")
     public List<MeasurementDto> getMeterMeasurements(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int meterId) {
+            @NotNull @PathVariable int meterId) {
         return mTrackerService.getMeasurementsForMeter(meterId, userToken);
     }
 
     @PostMapping("/meter/{meterId}/measurement")
     public MeasurementDto addMeasurement(
             @RequestHeader(name = "authorization") UUID userToken,
-            @NotNull @NotEmpty @PathVariable int meterId,
+            @NotNull @PathVariable int meterId,
             @Valid @RequestBody MeasurementDto request) {
         return mTrackerService.addMeasurementToMeter(meterId, request.getValue(), userToken);
     }

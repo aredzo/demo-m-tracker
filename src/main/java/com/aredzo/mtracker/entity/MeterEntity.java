@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class MeterEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer meterId;
 
     @Column(nullable = false)
@@ -31,9 +32,11 @@ public class MeterEntity {
     private String unit;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "houseId")
     private HouseEntity house;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carId")
     private CarEntity car;
 
     @OneToMany(

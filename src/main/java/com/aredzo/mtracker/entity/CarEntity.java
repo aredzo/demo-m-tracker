@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CarEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer carId;
 
     @Column(nullable = false)

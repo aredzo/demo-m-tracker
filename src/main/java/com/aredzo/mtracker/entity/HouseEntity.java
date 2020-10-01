@@ -18,7 +18,7 @@ import java.util.Objects;
 public class HouseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer houseId;
 
     @Column(nullable = false)

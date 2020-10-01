@@ -8,6 +8,11 @@ public class MTrackerServiceException extends RuntimeException {
         this.error = error;
     }
 
+    public MTrackerServiceException(Throwable cause, MTrackerServiceError error) {
+        super(cause);
+        this.error = error;
+    }
+
     public MTrackerServiceError getError() {
         return error;
     }

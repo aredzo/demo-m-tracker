@@ -24,8 +24,6 @@ public class SsoClient {
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper;
     private final String ssoServiceUrl;
-    private final String appSsoEmail;
-    private final String appSsoPassword;
     private static final Logger log = LoggerFactory.getLogger(SsoClient.class);
 
     private static final String SSO_PATH_SIGNUP_SERVICE = "/sso/v1/int/users/signup";
@@ -35,15 +33,11 @@ public class SsoClient {
     public SsoClient(
             RestTemplate restTemplate,
             ObjectMapper mapper,
-            @Value("${sso.service.url}") String ssoServiceUrl,
-            @Value("${app.sso.email}") String appSsoEmail,
-            @Value("${app.sso.password}") String appSsoPassword
+            @Value("${sso.service.url}") String ssoServiceUrl
     ) {
         this.restTemplate = restTemplate;
         this.mapper = mapper;
         this.ssoServiceUrl = ssoServiceUrl;
-        this.appSsoEmail = appSsoEmail;
-        this.appSsoPassword = appSsoPassword;
     }
 
 
@@ -70,7 +64,7 @@ public class SsoClient {
 
     public ValidateTokenResponse validateToken(UUID appToken, UUID userToken) throws HttpStatusCodeException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("authorize", appToken.toString());
+        headers.set("authorization", appToken.toString());
 
         HttpEntity<Object> validateTokenRequest = new HttpEntity<>(null, headers);
         String url = UriComponentsBuilder
@@ -78,7 +72,7 @@ public class SsoClient {
                 .queryParam("token", userToken.toString())
                 .toUriString();
         ValidateTokenResponse validateTokenResponse = restTemplate.exchange(url, HttpMethod.GET, validateTokenRequest, ValidateTokenResponse.class).getBody();
-        log.info("Signed up as service: {}", validateTokenResponse);
+        log.info("Validated token: {}", validateTokenResponse);
         return validateTokenResponse;
     }
 }

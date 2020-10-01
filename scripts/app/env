@@ -5,3 +5,6 @@ MT_DB_PORT=5432
 MT_DB_NAME=m_tracker
 MT_DB_USER=mtracker
 MT_DB_PASSWORD=secret
+SSO_URL=http://mtracker-sso:8080
+APP_SSO_EMAIL=mtraker@test.com
+APP_SSO_PASSWORD=testpassword
