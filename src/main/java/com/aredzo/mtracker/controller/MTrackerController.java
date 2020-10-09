@@ -21,14 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(value = "/v1/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/tracker/v1/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MTrackerController {
 
     private final MTrackerService mTrackerService;
